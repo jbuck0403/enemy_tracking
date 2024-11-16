@@ -3,19 +3,21 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    private const int MAX_HEALTH = 10;
-    public int currentHealth;
+    private Rigidbody2D rb;
 
     [NonSerialized]
     public bool moving = false;
 
-    private Rigidbody2D rb;
+    protected int CurrentHealth { get; private set; }
 
     [SerializeField]
-    public float decelerationRate = 1f;
+    protected int MaxHealth = 10;
 
     [SerializeField]
-    public float decelerationFloor = 1f;
+    protected float decelerationRate = 1f;
+
+    [SerializeField]
+    protected float decelerationFloor = 1f;
 
     [SerializeField]
     protected float speed = 5f;
@@ -53,7 +55,7 @@ public class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        currentHealth = MAX_HEALTH;
+        CurrentHealth = MaxHealth;
     }
 
     protected virtual void Update() { }
@@ -124,8 +126,7 @@ public class Character : MonoBehaviour
             Vector2.zero,
             decelerationRate * Time.fixedDeltaTime
         );
-        if (tag == CommonTags.Enemy)
-            print($"{tag} Velocity: {rb.velocity.sqrMagnitude}");
+
         if (rb.velocity.sqrMagnitude < decelerationFloor)
         {
             rb.velocity = Vector2.zero;
@@ -144,19 +145,44 @@ public class Character : MonoBehaviour
 
     public void ShootProjectile()
     {
-        // Get the forward direction based on current rotation (remember we're rotated -90 on Z)
-        Vector2 shootDirection = transform.up; // In 2D, 'up' is actually forward due to our -90 rotation
+        print("checkpoint 1");
 
-        // Calculate spawn position (slightly in front of the character)
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile prefab is null!");
+            return;
+        }
+
+        if (projectileSpawnPoint == null)
+        {
+            Debug.LogError("Projectile spawn point is null!");
+            return;
+        }
+
+        // Get the forward direction based on current rotation (remember we're rotated -90 on Z)
+        Vector2 shootDirection = transform.up;
+
+        // Calculate spawn position
         Vector2 spawnPosition = projectileSpawnPoint.position;
 
         // Instantiate and setup the projectile
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, transform.rotation);
+
         Projectile projectileMethods = projectile.GetComponent<Projectile>();
+        if (projectileMethods == null)
+        {
+            Debug.LogError("Projectile script not found on prefab!");
+            return;
+        }
 
         projectileMethods.SetFiredBy(gameObject.tag);
 
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
+        if (projectileRb == null)
+        {
+            Debug.LogError("Rigidbody2D not found on projectile!");
+            return;
+        }
 
         // Apply velocity in the shooting direction
         projectileRb.velocity = shootDirection * projectileSpeed;
@@ -173,10 +199,10 @@ public class Character : MonoBehaviour
         {
             int damageTaken = projectile.Damage;
 
-            currentHealth -= damageTaken;
-            print($"Health: {currentHealth}");
+            CurrentHealth -= damageTaken;
+            print($"Health: {CurrentHealth}");
 
-            if (currentHealth <= 0)
+            if (CurrentHealth <= 0)
             {
                 Die();
                 //game over screen from gamemanager

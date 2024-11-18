@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     protected int CurrentHealth { get; private set; }
 
     [SerializeField]
-    protected int MaxHealth = 10;
+    protected int maxHealth = 10;
 
     [SerializeField]
     protected float decelerationRate = 1f;
@@ -39,6 +39,12 @@ public class Character : MonoBehaviour
     protected float rateOfFire = 1f;
 
     [SerializeField]
+    protected float detectionRange = 30f;
+
+    [SerializeField]
+    protected float detectionRangeTolerance = 3f;
+
+    [SerializeField]
     protected GameObject projectilePrefab;
 
     [SerializeField]
@@ -46,16 +52,22 @@ public class Character : MonoBehaviour
 
     private float timeSinceLastShot;
 
+    private Transform projectileContainer;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         // spriteRenderer = GetComponent<SpriteRenderer>();
         // animator = GetComponent<Animator>();
+
+        projectileContainer = GameObject
+            .FindGameObjectWithTag(CommonTags.ProjectileContainer)
+            .transform;
     }
 
     protected virtual void Start()
     {
-        CurrentHealth = MaxHealth;
+        CurrentHealth = maxHealth;
     }
 
     protected virtual void Update() { }
@@ -83,7 +95,7 @@ public class Character : MonoBehaviour
         float angleDifference = Mathf.DeltaAngle(currentAngle, targetAngle);
 
         // Calculate max rotation this frame
-        float maxRotationThisFrame = maxRotationSpeed * Time.deltaTime;
+        float maxRotationThisFrame = maxRotationSpeed * Time.fixedDeltaTime;
 
         // Clamp rotation to max speed
         float rotationAmount = Mathf.Clamp(
@@ -119,7 +131,99 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void SlowToStop()
+    protected virtual void FollowTarget(
+        Transform target,
+        Action targetWithinDistanceFn = null,
+        float offset = 0f,
+        Vector2? offsetDirection = null
+    )
+    {
+        if (target == null)
+            return;
+
+        // Calculate offset position if direction is provided
+        Vector2 targetPosition = target.position;
+        if (offsetDirection.HasValue && offset != 0f)
+        {
+            targetPosition += offsetDirection.Value.normalized * offset;
+        }
+
+        FaceTarget(target);
+
+        bool withinTolerableRange = TargetWithinTolerableRange(target, null, targetPosition);
+        float distanceToTarget = DistanceToPosition(targetPosition);
+
+        // Target is ideally close
+        if (withinTolerableRange)
+        {
+            moving = false;
+            return;
+        }
+        else
+        {
+            // Target is still within detection range
+            if (TargetWithinDetectionRange(target, null, targetPosition))
+            {
+                if (targetWithinDistanceFn != null)
+                {
+                    // Unless action is provided, do nothing
+                    targetWithinDistanceFn?.Invoke();
+                }
+                else
+                {
+                    moving = false;
+                }
+            }
+            // Target is too far away
+            else
+            {
+                moving = true;
+                MoveInDirection(transform.up);
+            }
+        }
+    }
+
+    private float DistanceToPosition(Vector2 positionToCheck)
+    {
+        return ((Vector2)transform.position - positionToCheck).sqrMagnitude;
+    }
+
+    protected bool TargetWithinTolerableRange(
+        Transform target,
+        float? rangeOverride = null,
+        Vector2? targetPosition = null
+    )
+    {
+        if (target == null)
+            return false;
+
+        Vector2 positionToCheck = targetPosition ?? (Vector2)target.position;
+        float distance = DistanceToPosition(positionToCheck);
+        float range = rangeOverride ?? detectionRange;
+
+        return distance >= range - detectionRangeTolerance
+            && distance <= range + detectionRangeTolerance;
+    }
+
+    protected bool TargetWithinDetectionRange(
+        Transform target,
+        float? rangeOverride = null,
+        Vector2? targetPosition = null
+    )
+    {
+        if (target == null)
+            return false;
+
+        Vector2 positionToCheck = targetPosition ?? (Vector2)target.position;
+        float distance = DistanceToPosition(positionToCheck);
+        float range = rangeOverride ?? detectionRange;
+
+        print($"{distance} || {range}");
+
+        return distance <= range + detectionRangeTolerance;
+    }
+
+    private void SlowToStop()
     {
         rb.velocity = Vector2.Lerp(
             rb.velocity,
@@ -143,24 +247,26 @@ public class Character : MonoBehaviour
         }
     }
 
-    public void ShootProjectile()
+    // If no value specified for shootDirection, defaults to Vector2.zero (0,0)
+    public Projectile ShootProjectile(Vector2 shootDirection = default)
     {
-        print("checkpoint 1");
-
         if (projectilePrefab == null)
         {
             Debug.LogError("Projectile prefab is null!");
-            return;
+            return null;
         }
 
         if (projectileSpawnPoint == null)
         {
             Debug.LogError("Projectile spawn point is null!");
-            return;
+            return null;
         }
 
-        // Get the forward direction based on current rotation (remember we're rotated -90 on Z)
-        Vector2 shootDirection = transform.up;
+        if (shootDirection == default)
+        {
+            // Get the forward direction based on current rotation (remember we're rotated -90 on Z)
+            shootDirection = transform.up;
+        }
 
         // Calculate spawn position
         Vector2 spawnPosition = projectileSpawnPoint.position;
@@ -168,27 +274,31 @@ public class Character : MonoBehaviour
         // Instantiate and setup the projectile
         GameObject projectile = Instantiate(projectilePrefab, spawnPosition, transform.rotation);
 
-        Projectile projectileMethods = projectile.GetComponent<Projectile>();
-        if (projectileMethods == null)
+        projectile.transform.SetParent(projectileContainer);
+
+        Projectile projectileComponent = projectile.GetComponent<Projectile>();
+        if (projectileComponent == null)
         {
             Debug.LogError("Projectile script not found on prefab!");
-            return;
+            return null;
         }
 
-        projectileMethods.SetFiredBy(gameObject.tag);
+        projectileComponent.SetFiredBy(gameObject.tag);
 
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         if (projectileRb == null)
         {
             Debug.LogError("Rigidbody2D not found on projectile!");
-            return;
+            return null;
         }
 
         // Apply velocity in the shooting direction
         projectileRb.velocity = shootDirection * projectileSpeed;
+
+        return projectileComponent;
     }
 
-    public void TakeDamage(Projectile projectile)
+    public void TakeDamage(Projectile projectile, int? damageOverride = null)
     {
         if (projectile == null)
             return;
@@ -197,10 +307,8 @@ public class Character : MonoBehaviour
 
         if (!gameObject.CompareTag(firedBy))
         {
-            int damageTaken = projectile.Damage;
-
-            CurrentHealth -= damageTaken;
-            print($"Health: {CurrentHealth}");
+            int damage = damageOverride ?? projectile.Damage;
+            CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
 
             if (CurrentHealth <= 0)
             {
@@ -221,8 +329,11 @@ public class Character : MonoBehaviour
         {
             Projectile projectile = other.gameObject.GetComponent<Projectile>();
 
-            TakeDamage(projectile);
-            projectile.DestroyProjectile();
+            if (!gameObject.CompareTag(projectile.FiredBy))
+            {
+                TakeDamage(projectile);
+                projectile.DestroyProjectile();
+            }
         }
     }
 }

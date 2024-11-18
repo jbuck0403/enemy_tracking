@@ -1,12 +1,10 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
 public class Enemy : Character
 {
-    Transform playerTransform;
-
-    [SerializeField]
-    protected float detectionRange = 30f;
+    protected Transform playerTransform;
 
     protected override void Awake()
     {
@@ -28,38 +26,15 @@ public class Enemy : Character
 
     protected override void FixedUpdate()
     {
-        FollowPlayer();
+        FollowTarget(playerTransform);
         base.FixedUpdate();
     }
 
-    private void FollowPlayer()
+    protected virtual void ShootPlayer()
     {
-        FaceTarget(playerTransform);
-
-        if (!TargetWithinDistance(playerTransform))
-        {
-            moving = true;
-            MoveInDirection(transform.up);
-        }
-        else
-        {
-            moving = false;
-        }
-    }
-
-    private void ShootPlayer()
-    {
-        if (TargetWithinDistance(playerTransform))
+        if (TargetWithinDetectionRange(playerTransform))
         {
             ShootProjectileWithRateOfFire();
         }
-    }
-
-    private bool TargetWithinDistance(Transform target)
-    {
-        if (target == null)
-            return false;
-
-        return ((Vector2)(target.position - transform.position)).sqrMagnitude <= detectionRange;
     }
 }

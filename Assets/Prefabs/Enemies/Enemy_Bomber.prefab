@@ -212,10 +212,11 @@ MonoBehaviour:
   speed: 3
   maxSpeed: 3
   acceleration: 3
-  maxRotationSpeed: 360
+  maxRotationSpeed: 180
   projectileSpeed: 5
   rateOfFire: 1
+  detectionRange: 5
+  detectionRangeTolerance: 10
   projectilePrefab: {fileID: 3597166191456665706, guid: 388b90d5089128d4da2b713153f52f3f, type: 3}
   projectileSpawnPoint: {fileID: 1449408527502274844}
-  detectionRange: 5
   numProjectiles: 10

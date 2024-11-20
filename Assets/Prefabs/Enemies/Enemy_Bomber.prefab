@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: -7694831055595999332}
   - component: {fileID: 2503188721226561731}
   - component: {fileID: 2612897149320396954}
+  - component: {fileID: 7409492662234192984}
   m_Layer: 0
   m_Name: Enemy_Bomber
   m_TagString: Enemy
@@ -207,15 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f25353a8c8f5643ab73a2fc8c41cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  decelerationRate: 1
-  decelerationFloor: 1
-  speed: 3
-  maxSpeed: 3
-  acceleration: 3
-  maxRotationSpeed: 180
-  detectionRange: 5
-  detectionRangeTolerance: 10
+  characterType: {fileID: 11400000, guid: 0fdce77c4941bb8419621ef1e53871e8, type: 2}
   numProjectiles: 10
 --- !u!114 &2612897149320396954
 MonoBehaviour:
@@ -229,7 +222,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b9ef6f4b61c7204a89b8b2a717a8182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 1
-  projectileSpeed: 10
-  projectilePrefab: {fileID: 3597166191456665706, guid: 388b90d5089128d4da2b713153f52f3f, type: 3}
-  projectileSpawnPoint: {fileID: 1449408527502274844}
+  weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
+--- !u!114 &7409492662234192984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9574dd9e61c54c9468237ac1828f0ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

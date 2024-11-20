@@ -41,14 +41,14 @@ GameObject:
   m_Component:
   - component: {fileID: 3165515767767498849}
   - component: {fileID: 7080335773534228005}
-  - component: {fileID: 3825122513801458531}
-  - component: {fileID: 5377806372806915523}
   - component: {fileID: 68062022803973777}
   - component: {fileID: -7694831055595999332}
-  - component: {fileID: -6741911257339078617}
+  - component: {fileID: -6529798898731225459}
+  - component: {fileID: 7409492662234192984}
+  - component: {fileID: -8678904725409010875}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: Player
+  m_Name: Enemy_Bomber 1
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,32 +121,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3825122513801458531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711593218608430455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a995b534c2153a498d4d5e9b5b9ed0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterType: {fileID: 11400000, guid: b5d269f12e9678042bb1de0ca56cf687, type: 2}
---- !u!114 &5377806372806915523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711593218608430455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4ab196e4c469f459fad96fff28bc05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
 --- !u!50 &68062022803973777
 Rigidbody2D:
   serializedVersion: 4
@@ -209,7 +183,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -222,7 +196,20 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!114 &-6741911257339078617
+--- !u!114 &-6529798898731225459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d493b3b8cf8d474aa521815e0286919, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: {fileID: 11400000, guid: 0fdce77c4941bb8419621ef1e53871e8, type: 2}
+--- !u!114 &7409492662234192984
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,3 +221,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9574dd9e61c54c9468237ac1828f0ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8678904725409010875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fcc4bb61c95ceb4780ec434248b43b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
+  numProjectiles: 10

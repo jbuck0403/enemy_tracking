@@ -1,50 +1,28 @@
 using System;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, ITakeDamage
 {
+    [SerializeField]
+    private CharacterType characterType;
     private Rigidbody2D rb;
+
+    private WithinDistance withinDistanceFn;
 
     [NonSerialized]
     public bool moving = false;
 
     protected int CurrentHealth { get; private set; }
 
-    [SerializeField]
-    protected int maxHealth = 10;
-
-    [SerializeField]
-    protected float decelerationRate = 1f;
-
-    [SerializeField]
-    protected float decelerationFloor = 1f;
-
-    [SerializeField]
-    protected float speed = 5f;
-
-    [SerializeField]
-    protected float maxSpeed = 5f;
-
-    [SerializeField]
-    protected float acceleration = 5f;
-
-    [SerializeField]
-    protected float maxRotationSpeed = 360f;
-
-    [SerializeField]
-    protected float detectionRange = 30f;
-
-    [SerializeField]
-    protected float detectionRangeTolerance = 3f;
-
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        withinDistanceFn = GetComponent<WithinDistance>();
     }
 
     protected virtual void Start()
     {
-        CurrentHealth = maxHealth;
+        CurrentHealth = characterType.MaxHealth;
     }
 
     protected virtual void Update() { }
@@ -72,7 +50,7 @@ public class Character : MonoBehaviour
         float angleDifference = Mathf.DeltaAngle(currentAngle, targetAngle);
 
         // Calculate max rotation this frame
-        float maxRotationThisFrame = maxRotationSpeed * Time.fixedDeltaTime;
+        float maxRotationThisFrame = characterType.MaxRotationSpeed * Time.fixedDeltaTime;
 
         // Clamp rotation to max speed
         float rotationAmount = Mathf.Clamp(
@@ -92,25 +70,24 @@ public class Character : MonoBehaviour
         Vector2 normalizedDirection = direction.normalized;
 
         // Calculate target velocity based on direction and speed
-        Vector2 targetVelocity = normalizedDirection * speed;
+        Vector2 targetVelocity = normalizedDirection * characterType.Speed;
 
         // Calculate the difference between current and target velocity
         Vector2 velocityDiff = targetVelocity - rb.velocity;
 
         // Apply acceleration towards the target velocity
-        Vector2 accelerationForce = velocityDiff * acceleration;
+        Vector2 accelerationForce = velocityDiff * characterType.Acceleration;
         rb.AddForce(accelerationForce);
 
         // Cap the velocity at maxSpeed
-        if (rb.velocity.magnitude > maxSpeed)
+        if (rb.velocity.magnitude > characterType.MaxSpeed)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            rb.velocity = rb.velocity.normalized * characterType.MaxSpeed;
         }
     }
 
     protected virtual void FollowTarget(
         Transform target,
-        Action targetWithinDistanceFn = null,
         float offset = 0f,
         Vector2? offsetDirection = null
     )
@@ -141,10 +118,10 @@ public class Character : MonoBehaviour
             // Target is still within detection range
             if (TargetWithinDetectionRange(target, null, targetPosition))
             {
-                if (targetWithinDistanceFn != null)
+                if (withinDistanceFn != null)
                 {
                     // Unless action is provided, do nothing
-                    targetWithinDistanceFn?.Invoke();
+                    withinDistanceFn?.WithinDistanceAction();
                 }
                 else
                 {
@@ -176,10 +153,10 @@ public class Character : MonoBehaviour
 
         Vector2 positionToCheck = targetPosition ?? (Vector2)target.position;
         float distance = DistanceToPosition(positionToCheck);
-        float range = rangeOverride ?? detectionRange;
+        float range = rangeOverride ?? characterType.DetectionRange;
 
-        return distance >= range - detectionRangeTolerance
-            && distance <= range + detectionRangeTolerance;
+        return distance >= range - characterType.DetectionRangeTolerance
+            && distance <= range + characterType.DetectionRangeTolerance;
     }
 
     protected bool TargetWithinDetectionRange(
@@ -193,11 +170,11 @@ public class Character : MonoBehaviour
 
         Vector2 positionToCheck = targetPosition ?? (Vector2)target.position;
         float distance = DistanceToPosition(positionToCheck);
-        float range = rangeOverride ?? detectionRange;
+        float range = rangeOverride ?? characterType.DetectionRange;
 
-        print($"{distance} || {range}");
+        // print($"{distance} || {range}");
 
-        return distance <= range + detectionRangeTolerance;
+        return distance <= range + characterType.DetectionRangeTolerance;
     }
 
     private void SlowToStop()
@@ -205,10 +182,10 @@ public class Character : MonoBehaviour
         rb.velocity = Vector2.Lerp(
             rb.velocity,
             Vector2.zero,
-            decelerationRate * Time.fixedDeltaTime
+            characterType.DecelerationRate * Time.fixedDeltaTime
         );
 
-        if (rb.velocity.sqrMagnitude < decelerationFloor)
+        if (rb.velocity.sqrMagnitude < characterType.DecelerationFloor)
         {
             rb.velocity = Vector2.zero;
         }
@@ -237,19 +214,5 @@ public class Character : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
-    }
-
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag(CommonTags.Projectile))
-        {
-            Projectile projectile = other.gameObject.GetComponent<Projectile>();
-
-            if (!gameObject.CompareTag(projectile.FiredBy))
-            {
-                TakeDamage(projectile);
-                projectile.DestroyProjectile();
-            }
-        }
     }
 }

@@ -1,23 +1,25 @@
 using UnityEngine;
 
-public class Bomber : Enemy
+public class FireBomb : FireProjectile, IFireProjectile
 {
     [SerializeField]
     private int numProjectiles = 5;
     private Vector2[] directions;
 
-    protected override void Start()
+    protected override void Awake()
     {
+        base.Awake();
         directions = GetProjectileDirections();
-        base.Start();
     }
 
-    protected override void ShootPlayer()
+    public void FireProjectile()
     {
-        if (TargetWithinDetectionRange(playerTransform))
-        {
-            Explode();
-        }
+        Explode();
+    }
+
+    public void FireProjectileWithRateOfFire()
+    {
+        Explode();
     }
 
     private void Explode()
@@ -27,7 +29,7 @@ public class Bomber : Enemy
             ShootProjectile(directions[i]);
         }
 
-        Die();
+        Destroy(gameObject);
     }
 
     private Vector2[] GetProjectileDirections()

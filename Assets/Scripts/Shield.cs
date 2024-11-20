@@ -62,7 +62,7 @@ public class Shield : Character
     {
         if (shielding != null)
         {
-            FollowTarget(shielding, null, 15f, offsetDirection);
+            FollowTarget(shielding, 15f, offsetDirection);
         }
         if (shieldFrom != null)
         {

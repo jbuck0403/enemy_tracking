@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class FireProjectile : MonoBehaviour, IFireProjectile
+public class FireProjectile : MonoBehaviour
 {
     [SerializeField]
-    //shots per second
-    protected float rateOfFire = 1f;
-
-    [SerializeField]
-    protected float projectileSpeed = 10f;
-
-    [SerializeField]
-    protected GameObject projectilePrefab;
+    WeaponType weaponType;
 
     private Transform projectileSpawnPoint;
 
@@ -27,10 +20,10 @@ public class FireProjectile : MonoBehaviour, IFireProjectile
         projectileSpawnPoint = transform.GetChild(0).transform;
     }
 
-    public void ShootProjectileWithRateOfFire()
+    protected virtual void ShootProjectileWithRateOfFire()
     {
         timeSinceLastShot += Time.deltaTime;
-        if (timeSinceLastShot >= rateOfFire)
+        if (timeSinceLastShot >= weaponType.RateOfFire)
         {
             ShootProjectile();
             timeSinceLastShot = 0f;
@@ -40,7 +33,7 @@ public class FireProjectile : MonoBehaviour, IFireProjectile
     // If no value specified for shootDirection, defaults to Vector2.zero (0,0)
     public Projectile ShootProjectile(Vector2 shootDirection = default)
     {
-        if (projectilePrefab == null)
+        if (weaponType.ProjectilePrefab == null)
         {
             Debug.LogError("Projectile prefab is null!");
             return null;
@@ -62,7 +55,11 @@ public class FireProjectile : MonoBehaviour, IFireProjectile
         Vector2 spawnPosition = projectileSpawnPoint.position;
 
         // Instantiate and setup the projectile
-        GameObject projectile = Instantiate(projectilePrefab, spawnPosition, transform.rotation);
+        GameObject projectile = Instantiate(
+            weaponType.ProjectilePrefab,
+            spawnPosition,
+            transform.rotation
+        );
 
         projectile.transform.SetParent(projectileContainer);
 
@@ -83,7 +80,7 @@ public class FireProjectile : MonoBehaviour, IFireProjectile
         }
 
         // Apply velocity in the shooting direction
-        projectileRb.velocity = shootDirection * projectileSpeed;
+        projectileRb.velocity = shootDirection * weaponType.ProjectileSpeed;
 
         return projectileComponent;
     }

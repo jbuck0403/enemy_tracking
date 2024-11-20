@@ -8,10 +8,9 @@ public class Player : Character, IFireProjectile
 
     private IFireProjectile currentWeapon;
 
-    public Projectile ShootProjectile(Vector2 shootDirection = default) =>
-        currentWeapon.ShootProjectile(shootDirection);
+    public void FireProjectile() => currentWeapon.FireProjectile();
 
-    public void ShootProjectileWithRateOfFire() => currentWeapon.ShootProjectileWithRateOfFire();
+    public void FireProjectileWithRateOfFire() => currentWeapon.FireProjectileWithRateOfFire();
 
     public void SwapWeapon(IFireProjectile newWeapon)
     {
@@ -25,14 +24,14 @@ public class Player : Character, IFireProjectile
 
         mousePositionTransform = new GameObject("Mouse Position Target").transform;
         defaultWeapon = GetComponent<FireProjectile>();
-        currentWeapon = defaultWeapon;
+        currentWeapon = defaultWeapon as IFireProjectile;
     }
 
     protected override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            currentWeapon.ShootProjectile();
+            currentWeapon.FireProjectile();
         }
         base.Update();
     }

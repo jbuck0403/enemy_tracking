@@ -43,8 +43,10 @@ GameObject:
   - component: {fileID: 7080335773534228005}
   - component: {fileID: 68062022803973777}
   - component: {fileID: -7694831055595999332}
-  - component: {fileID: -2690208854254006560}
-  - component: {fileID: 2834180866960990917}
+  - component: {fileID: -6323438880266836586}
+  - component: {fileID: -1456822963399022032}
+  - component: {fileID: 3591396897707496347}
+  - component: {fileID: 270725521520502120}
   m_Layer: 0
   m_Name: Enemy_Sniper
   m_TagString: Enemy
@@ -195,7 +197,7 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!114 &-2690208854254006560
+--- !u!114 &-6323438880266836586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,19 +206,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8711593218608430455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f237c18a618b74284ec99c303e6812, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d493b3b8cf8d474aa521815e0286919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  decelerationRate: 1
-  decelerationFloor: 1
-  speed: 5
-  maxSpeed: 5
-  acceleration: 5
-  maxRotationSpeed: 720
-  detectionRange: 60
-  detectionRangeTolerance: 3
---- !u!114 &2834180866960990917
+  characterType: {fileID: 11400000, guid: 388bc563bc11e924ca54f3b5b58befdd, type: 2}
+--- !u!114 &-1456822963399022032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,9 +219,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 8711593218608430455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9ef6f4b61c7204a89b8b2a717a8182, type: 3}
+  m_Script: {fileID: 11500000, guid: 9574dd9e61c54c9468237ac1828f0ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rateOfFire: 2
-  projectileSpeed: 20
-  projectilePrefab: {fileID: 3597166191456665706, guid: 388b90d5089128d4da2b713153f52f3f, type: 3}
+--- !u!114 &3591396897707496347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7852933d21ce7a845a35abf56cc81bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &270725521520502120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4ab196e4c469f459fad96fff28bc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}

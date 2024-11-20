@@ -4,12 +4,13 @@ public class Enemy : Character, IFireProjectile
 {
     protected Transform playerTransform;
 
+    private FireProjectile defaultWeapon;
+
     private IFireProjectile currentWeapon;
 
-    public Projectile ShootProjectile(Vector2 shootDirection = default) =>
-        currentWeapon.ShootProjectile(shootDirection);
+    public void FireProjectile() => currentWeapon.FireProjectile();
 
-    public void ShootProjectileWithRateOfFire() => currentWeapon.ShootProjectileWithRateOfFire();
+    public void FireProjectileWithRateOfFire() => currentWeapon.FireProjectileWithRateOfFire();
 
     public void SwapWeapon(IFireProjectile newWeapon)
     {
@@ -20,9 +21,8 @@ public class Enemy : Character, IFireProjectile
     {
         base.Awake();
         playerTransform = GameObject.FindGameObjectWithTag(CommonTags.Player).transform;
-        currentWeapon = GetComponent<FireProjectile>();
-
-        decelerationFloor = 10f;
+        defaultWeapon = GetComponent<FireProjectile>();
+        currentWeapon = defaultWeapon as IFireProjectile;
     }
 
     protected override void Update()
@@ -45,7 +45,7 @@ public class Enemy : Character, IFireProjectile
     {
         if (TargetWithinDetectionRange(playerTransform))
         {
-            ShootProjectileWithRateOfFire();
+            FireProjectileWithRateOfFire();
         }
     }
 }

@@ -1,21 +1,16 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shield : Character
 {
     [SerializeField]
-    private static readonly GameObject shieldPrefab;
+    public static readonly GameObject shieldPrefab;
 
-    [NonSerialized]
-    public Transform shieldFrom;
-
-    [NonSerialized]
-    public Transform shielding;
-
-    [HideInInspector]
     [SerializeField]
-    protected new GameObject projectilePrefab = null;
+    private Transform shieldFrom;
+
+    [SerializeField]
+    private Transform shielding;
 
     public static Shield CreateShield(
         Transform master,
@@ -63,11 +58,11 @@ public class Shield : Character
         }
     }
 
-    private void ShieldMovement()
+    private void ShieldMovement(Vector2 offsetDirection)
     {
         if (shielding != null)
         {
-            FollowTarget(shielding);
+            FollowTarget(shielding, null, 15f, offsetDirection);
         }
         if (shieldFrom != null)
         {
@@ -77,7 +72,7 @@ public class Shield : Character
 
     protected override void FixedUpdate()
     {
-        ShieldMovement();
+        ShieldMovement(Vector2.up);
         base.FixedUpdate();
     }
 }

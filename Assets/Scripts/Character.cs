@@ -32,37 +32,14 @@ public class Character : MonoBehaviour
     protected float maxRotationSpeed = 360f;
 
     [SerializeField]
-    protected float projectileSpeed = 10f;
-
-    [SerializeField]
-    //shots per second
-    protected float rateOfFire = 1f;
-
-    [SerializeField]
     protected float detectionRange = 30f;
 
     [SerializeField]
     protected float detectionRangeTolerance = 3f;
 
-    [SerializeField]
-    protected GameObject projectilePrefab;
-
-    [SerializeField]
-    private Transform projectileSpawnPoint;
-
-    private float timeSinceLastShot;
-
-    private Transform projectileContainer;
-
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        // spriteRenderer = GetComponent<SpriteRenderer>();
-        // animator = GetComponent<Animator>();
-
-        projectileContainer = GameObject
-            .FindGameObjectWithTag(CommonTags.ProjectileContainer)
-            .transform;
     }
 
     protected virtual void Start()
@@ -235,67 +212,6 @@ public class Character : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
-    }
-
-    public void ShootProjectileWithRateOfFire()
-    {
-        timeSinceLastShot += Time.deltaTime;
-        if (timeSinceLastShot >= rateOfFire)
-        {
-            ShootProjectile();
-            timeSinceLastShot = 0f;
-        }
-    }
-
-    // If no value specified for shootDirection, defaults to Vector2.zero (0,0)
-    public Projectile ShootProjectile(Vector2 shootDirection = default)
-    {
-        if (projectilePrefab == null)
-        {
-            Debug.LogError("Projectile prefab is null!");
-            return null;
-        }
-
-        if (projectileSpawnPoint == null)
-        {
-            Debug.LogError("Projectile spawn point is null!");
-            return null;
-        }
-
-        if (shootDirection == default)
-        {
-            // Get the forward direction based on current rotation (remember we're rotated -90 on Z)
-            shootDirection = transform.up;
-        }
-
-        // Calculate spawn position
-        Vector2 spawnPosition = projectileSpawnPoint.position;
-
-        // Instantiate and setup the projectile
-        GameObject projectile = Instantiate(projectilePrefab, spawnPosition, transform.rotation);
-
-        projectile.transform.SetParent(projectileContainer);
-
-        Projectile projectileComponent = projectile.GetComponent<Projectile>();
-        if (projectileComponent == null)
-        {
-            Debug.LogError("Projectile script not found on prefab!");
-            return null;
-        }
-
-        projectileComponent.SetFiredBy(gameObject.tag);
-
-        Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
-        if (projectileRb == null)
-        {
-            Debug.LogError("Rigidbody2D not found on projectile!");
-            return null;
-        }
-
-        // Apply velocity in the shooting direction
-        projectileRb.velocity = shootDirection * projectileSpeed;
-
-        return projectileComponent;
     }
 
     public void TakeDamage(Projectile projectile, int? damageOverride = null)

@@ -1,9 +1,22 @@
 using UnityEngine;
 
-public class Player : Character
+public class Player : Character, IFireProjectile
 {
     private Camera mainCamera;
     private Transform mousePositionTransform;
+    private FireProjectile defaultWeapon;
+
+    private IFireProjectile currentWeapon;
+
+    public Projectile ShootProjectile(Vector2 shootDirection = default) =>
+        currentWeapon.ShootProjectile(shootDirection);
+
+    public void ShootProjectileWithRateOfFire() => currentWeapon.ShootProjectileWithRateOfFire();
+
+    public void SwapWeapon(IFireProjectile newWeapon)
+    {
+        currentWeapon = newWeapon;
+    }
 
     protected override void Start()
     {
@@ -11,13 +24,15 @@ public class Player : Character
         mainCamera = Camera.main;
 
         mousePositionTransform = new GameObject("Mouse Position Target").transform;
+        defaultWeapon = GetComponent<FireProjectile>();
+        currentWeapon = defaultWeapon;
     }
 
     protected override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ShootProjectile();
+            currentWeapon.ShootProjectile();
         }
         base.Update();
     }

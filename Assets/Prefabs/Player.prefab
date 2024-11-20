@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3165515767767498849}
   - component: {fileID: 7080335773534228005}
+  - component: {fileID: -2660636514723960113}
   - component: {fileID: 3825122513801458531}
   - component: {fileID: 68062022803973777}
   - component: {fileID: -7694831055595999332}
@@ -119,6 +120,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-2660636514723960113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9ef6f4b61c7204a89b8b2a717a8182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rateOfFire: 1
+  projectileSpeed: 10
+  projectilePrefab: {fileID: 3597166191456665706, guid: 388b90d5089128d4da2b713153f52f3f, type: 3}
 --- !u!114 &3825122513801458531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,10 +154,8 @@ MonoBehaviour:
   maxSpeed: 15
   acceleration: 5
   maxRotationSpeed: 540
-  projectileSpeed: 10
-  rateOfFire: 1
-  projectilePrefab: {fileID: 3597166191456665706, guid: 388b90d5089128d4da2b713153f52f3f, type: 3}
-  projectileSpawnPoint: {fileID: 1449408527502274844}
+  detectionRange: 30
+  detectionRangeTolerance: 3
 --- !u!50 &68062022803973777
 Rigidbody2D:
   serializedVersion: 4

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 68062022803973777}
   - component: {fileID: -7694831055595999332}
   - component: {fileID: -2690208854254006560}
+  - component: {fileID: 2834180866960990917}
   m_Layer: 0
   m_Name: Enemy_Sniper
   m_TagString: Enemy
@@ -213,9 +214,20 @@ MonoBehaviour:
   maxSpeed: 5
   acceleration: 5
   maxRotationSpeed: 720
-  projectileSpeed: 20
-  rateOfFire: 2
   detectionRange: 60
   detectionRangeTolerance: 3
+--- !u!114 &2834180866960990917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9ef6f4b61c7204a89b8b2a717a8182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rateOfFire: 2
+  projectileSpeed: 20
   projectilePrefab: {fileID: 3597166191456665706, guid: 388b90d5089128d4da2b713153f52f3f, type: 3}
-  projectileSpawnPoint: {fileID: 1449408527502274844}

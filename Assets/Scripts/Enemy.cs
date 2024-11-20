@@ -1,15 +1,26 @@
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
-public class Enemy : Character
+public class Enemy : Character, IFireProjectile
 {
     protected Transform playerTransform;
+
+    private IFireProjectile currentWeapon;
+
+    public Projectile ShootProjectile(Vector2 shootDirection = default) =>
+        currentWeapon.ShootProjectile(shootDirection);
+
+    public void ShootProjectileWithRateOfFire() => currentWeapon.ShootProjectileWithRateOfFire();
+
+    public void SwapWeapon(IFireProjectile newWeapon)
+    {
+        currentWeapon = newWeapon;
+    }
 
     protected override void Awake()
     {
         base.Awake();
         playerTransform = GameObject.FindGameObjectWithTag(CommonTags.Player).transform;
+        currentWeapon = GetComponent<FireProjectile>();
 
         decelerationFloor = 10f;
     }

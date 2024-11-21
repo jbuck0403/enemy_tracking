@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 7080335773534228005}
   - component: {fileID: 68062022803973777}
   - component: {fileID: -7694831055595999332}
-  - component: {fileID: 2503188721226561731}
-  - component: {fileID: 2612897149320396954}
+  - component: {fileID: -6529798898731225459}
   - component: {fileID: 7409492662234192984}
+  - component: {fileID: -8678904725409010875}
+  - component: {fileID: 6436449564623714132}
   m_Layer: 0
   m_Name: Enemy_Bomber
   m_TagString: Enemy
@@ -196,7 +197,7 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!114 &2503188721226561731
+--- !u!114 &-6529798898731225459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,24 +206,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8711593218608430455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f25353a8c8f5643ab73a2fc8c41cef, type: 3}
+  m_Script: {fileID: 11500000, guid: 7d493b3b8cf8d474aa521815e0286919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: {fileID: 11400000, guid: 0fdce77c4941bb8419621ef1e53871e8, type: 2}
-  numProjectiles: 10
---- !u!114 &2612897149320396954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711593218608430455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9ef6f4b61c7204a89b8b2a717a8182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
 --- !u!114 &7409492662234192984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,5 +220,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9574dd9e61c54c9468237ac1828f0ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8678904725409010875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fcc4bb61c95ceb4780ec434248b43b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
+  numProjectiles: 10
+--- !u!114 &6436449564623714132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69600e8da8bdee448421ef2b62da164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

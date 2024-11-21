@@ -1,5 +1,7 @@
+using System;
+
 public interface ITakeDamage
 {
-    public void TakeDamage(Projectile projectile, int? damageOverride = null);
-    public void Die();
+    public void ApplyDamage(Projectile projectile, int? damageOverride = null);
+    public void Die(Action OnDestroy);
 }

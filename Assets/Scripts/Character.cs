@@ -6,29 +6,26 @@ public class Character : MonoBehaviour, ITakeDamage
     [SerializeField]
     private CharacterType characterType;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
 
     private WithinDistance withinDistanceFn;
+    private TakeDamage damage;
 
     [NonSerialized]
     public bool moving = false;
 
-    protected int CurrentHealth { get; private set; }
+    public void ApplyDamage(Projectile projectile, int? damageOverride = null) =>
+        damage.ApplyDamage(projectile, damageOverride);
 
-    public event Action OnDamageTaken;
+    public void Die(Action OnDestroy) => damage.Die(OnDestroy);
 
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        damage = GetComponent<TakeDamage>();
         withinDistanceFn = GetComponent<WithinDistance>();
     }
 
-    protected virtual void Start()
-    {
-        CurrentHealth = characterType.MaxHealth;
-        OnDamageTaken += UpdateColorByHealth;
-    }
+    protected virtual void Start() { }
 
     protected virtual void Update() { }
 
@@ -194,51 +191,5 @@ public class Character : MonoBehaviour, ITakeDamage
         {
             rb.velocity = Vector2.zero;
         }
-    }
-
-    public void TakeDamage(Projectile projectile, int? damageOverride = null)
-    {
-        if (projectile == null)
-            return;
-
-        string firedBy = projectile.FiredBy;
-
-        if (!gameObject.CompareTag(firedBy))
-        {
-            int damage = damageOverride ?? projectile.Damage;
-            CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
-
-            // Invoke any subscribers to OnDamageTaken
-            OnDamageTaken?.Invoke();
-
-            if (CurrentHealth <= 0)
-            {
-                Die();
-                //game over screen from gamemanager
-            }
-        }
-    }
-
-    private void UpdateColorByHealth()
-    {
-        if (spriteRenderer != null)
-        {
-            // Lerp from red (low health) to green (full health)
-            float healthPercentage = (float)CurrentHealth / characterType.MaxHealth;
-            Color healthColor = Color.Lerp(Color.red, Color.green, healthPercentage);
-
-            spriteRenderer.color = healthColor;
-        }
-    }
-
-    public void Die()
-    {
-        OnDestroy();
-        Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        OnDamageTaken -= UpdateColorByHealth;
     }
 }

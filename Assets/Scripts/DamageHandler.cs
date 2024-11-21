@@ -17,7 +17,7 @@ public class DamageHandler : MonoBehaviour
 
             if (!gameObject.CompareTag(projectile.FiredBy))
             {
-                damageableEntity.TakeDamage(projectile);
+                damageableEntity.ApplyDamage(projectile);
                 projectile.DestroyProjectile();
             }
         }

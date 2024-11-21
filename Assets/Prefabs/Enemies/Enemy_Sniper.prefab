@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: -1456822963399022032}
   - component: {fileID: 3591396897707496347}
   - component: {fileID: 270725521520502120}
+  - component: {fileID: -3803315364610338048}
   m_Layer: 0
   m_Name: Enemy_Sniper
   m_TagString: Enemy
@@ -210,6 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: {fileID: 11400000, guid: 388bc563bc11e924ca54f3b5b58befdd, type: 2}
+  CurrentHealth: 0
 --- !u!114 &-1456822963399022032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,3 +249,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
+--- !u!114 &-3803315364610338048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d69600e8da8bdee448421ef2b62da164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 10
+  CurrentHealth: 0

@@ -6,6 +6,7 @@ public class Character : MonoBehaviour, ITakeDamage
     [SerializeField]
     private CharacterType characterType;
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
 
     private WithinDistance withinDistanceFn;
 
@@ -14,15 +15,19 @@ public class Character : MonoBehaviour, ITakeDamage
 
     protected int CurrentHealth { get; private set; }
 
+    public event Action OnDamageTaken;
+
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         withinDistanceFn = GetComponent<WithinDistance>();
     }
 
     protected virtual void Start()
     {
         CurrentHealth = characterType.MaxHealth;
+        OnDamageTaken += UpdateColorByHealth;
     }
 
     protected virtual void Update() { }
@@ -203,6 +208,9 @@ public class Character : MonoBehaviour, ITakeDamage
             int damage = damageOverride ?? projectile.Damage;
             CurrentHealth = Mathf.Max(0, CurrentHealth - damage);
 
+            // Invoke any subscribers to OnDamageTaken
+            OnDamageTaken?.Invoke();
+
             if (CurrentHealth <= 0)
             {
                 Die();
@@ -211,8 +219,26 @@ public class Character : MonoBehaviour, ITakeDamage
         }
     }
 
+    private void UpdateColorByHealth()
+    {
+        if (spriteRenderer != null)
+        {
+            // Lerp from red (low health) to green (full health)
+            float healthPercentage = (float)CurrentHealth / characterType.MaxHealth;
+            Color healthColor = Color.Lerp(Color.red, Color.green, healthPercentage);
+
+            spriteRenderer.color = healthColor;
+        }
+    }
+
     public void Die()
     {
+        OnDestroy();
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        OnDamageTaken -= UpdateColorByHealth;
     }
 }

@@ -66,12 +66,12 @@ public class Player : Character, IFireProjectile
         // Only move if there's input to prevent unnecessary physics calculations
         if (direction != Vector2.zero)
         {
-            moving = true;
+            move.moving = true;
             MoveInDirection(direction);
         }
         else
         {
-            moving = false;
+            move.moving = false;
         }
     }
 }

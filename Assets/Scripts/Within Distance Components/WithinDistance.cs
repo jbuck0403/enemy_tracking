@@ -2,16 +2,10 @@ using UnityEngine;
 
 public class WithinDistance : MonoBehaviour
 {
-    private Character character;
-
-    void Awake()
+    public void ExecuteWithinDistanceAction()
     {
-        character = GetComponent<Character>();
+        WithinDistanceAction();
     }
 
-    public void WithinDistanceAction()
-    {
-        character.moving = true;
-        character.MoveInDirection(-transform.up);
-    }
+    protected virtual void WithinDistanceAction() { }
 }

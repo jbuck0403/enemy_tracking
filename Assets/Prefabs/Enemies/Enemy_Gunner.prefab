@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 6912928929321602693}
   - component: {fileID: 6083954431568548403}
   - component: {fileID: -8751407735191073926}
+  - component: {fileID: -947819001414556231}
   m_Layer: 0
   m_Name: Enemy_Gunner
   m_TagString: Enemy
@@ -209,8 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d493b3b8cf8d474aa521815e0286919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: {fileID: 11400000, guid: 0d4a8b66bf7ba2f42a290280cc4e721b, type: 2}
-  CurrentHealth: 0
 --- !u!114 &6912928929321602693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,3 +249,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 10
   CurrentHealth: 0
+--- !u!114 &-947819001414556231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef23320d7d89dca4d8c2727a7ade931b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: {fileID: 11400000, guid: 0d4a8b66bf7ba2f42a290280cc4e721b, type: 2}

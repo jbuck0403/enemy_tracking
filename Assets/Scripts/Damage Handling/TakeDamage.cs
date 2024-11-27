@@ -18,7 +18,6 @@ public class TakeDamage : MonoBehaviour
 
     protected virtual void Start()
     {
-        OnDamageTaken += UpdateColorByHealth;
         CurrentHealth = MaxHealth;
     }
 
@@ -45,9 +44,9 @@ public class TakeDamage : MonoBehaviour
         }
     }
 
-    public void Die(Action OnDestroy = null)
+    public void Die(Action BeforeDestroy = null)
     {
-        OnDestroy?.Invoke();
+        BeforeDestroy?.Invoke();
 
         Destroy(gameObject);
     }
@@ -64,8 +63,28 @@ public class TakeDamage : MonoBehaviour
         }
     }
 
-    protected virtual void OnDestroy()
+    protected virtual void SubscribeToEvents()
+    {
+        OnDamageTaken += UpdateColorByHealth;
+    }
+
+    protected virtual void UnsubscribeFromEvents()
     {
         OnDamageTaken -= UpdateColorByHealth;
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
+    private void OnEnable()
+    {
+        SubscribeToEvents();
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeFromEvents();
     }
 }

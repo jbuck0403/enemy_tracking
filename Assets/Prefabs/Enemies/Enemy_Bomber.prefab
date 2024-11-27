@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 7409492662234192984}
   - component: {fileID: -8678904725409010875}
   - component: {fileID: 6436449564623714132}
+  - component: {fileID: -1593912856282237948}
   m_Layer: 0
   m_Name: Enemy_Bomber
   m_TagString: Enemy
@@ -209,7 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d493b3b8cf8d474aa521815e0286919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterType: {fileID: 11400000, guid: 0fdce77c4941bb8419621ef1e53871e8, type: 2}
 --- !u!114 &7409492662234192984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,3 +248,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d69600e8da8bdee448421ef2b62da164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxHealth: 10
+  CurrentHealth: 0
+--- !u!114 &-1593912856282237948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef23320d7d89dca4d8c2727a7ade931b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterType: {fileID: 11400000, guid: 0fdce77c4941bb8419621ef1e53871e8, type: 2}

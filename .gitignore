@@ -64,9 +64,11 @@ Thumbs.db
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Misc.
-Assets/Sprites*
-Assets/Projectile Animations*
+# Specific Asset folders
+Assets/Sprites/
+Assets/Sprites.meta
+Assets/Projectile Animations/
+Assets/Projectile Animations.meta
 
 # Additional Large Media Files
 *.psd

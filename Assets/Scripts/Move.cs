@@ -24,14 +24,6 @@ public class Move : MonoBehaviour
 
     public virtual void Update() { }
 
-    // public virtual void FixedUpdate()
-    // {
-    //     if (!moving)
-    //     {
-    //         SlowToStop();
-    //     }
-    // }
-
     public void FaceTarget(Transform target)
     {
         // Calculate direction vector from this object to target

@@ -30,6 +30,9 @@ public class CharacterType : ScriptableObject
     [SerializeField]
     float detectionRangeTolerance = 3f;
 
+    [SerializeField]
+    DamageHandlerStrategy damageHandlerStrategy;
+
     // Public read-only properties
     public int MaxHealth => maxHealth;
     public float DecelerationRate => decelerationRate;
@@ -40,4 +43,5 @@ public class CharacterType : ScriptableObject
     public float MaxRotationSpeed => maxRotationSpeed;
     public float DetectionRange => detectionRange;
     public float DetectionRangeTolerance => detectionRangeTolerance;
+    public DamageHandlerStrategy DamageHandlerStrategy => damageHandlerStrategy;
 }

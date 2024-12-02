@@ -15,6 +15,11 @@ public class Projectile : MonoBehaviour
         FiredByGameObject = firedBy;
     }
 
+    public void SetDamageType(DamageType damageType)
+    {
+        Type = damageType;
+    }
+
     public void DestroyProjectile()
     {
         StartCoroutine(DestroyProjectileCoRoutine());

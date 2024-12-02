@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : Character, IFireProjectile
@@ -29,7 +30,7 @@ public class Player : Character, IFireProjectile
 
     protected override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             currentWeapon.FireProjectile();
         }

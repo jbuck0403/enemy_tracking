@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public DamageType Type = DamageType.Physical;
+    // public DamageType Type = DamageType.Physical;
     public string FiredBy { private set; get; } = "";
     public GameObject FiredByGameObject { private set; get; }
     public int Damage { protected set; get; } = 1;

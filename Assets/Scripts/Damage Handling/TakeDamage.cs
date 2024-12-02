@@ -21,6 +21,18 @@ public class TakeDamage : MonoBehaviour
         CurrentHealth = MaxHealth;
     }
 
+    private bool CheckFriendlyFire(Projectile projectile)
+    {
+        string firedBy = projectile.FiredBy;
+
+        if (gameObject.CompareTag(firedBy))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public void ApplyDamage(Projectile projectile, int? damageOverride = null)
     {
         if (projectile == null)
@@ -28,7 +40,7 @@ public class TakeDamage : MonoBehaviour
 
         string firedBy = projectile.FiredBy;
 
-        if (!gameObject.CompareTag(firedBy))
+        if (CheckFriendlyFire(projectile))
         {
             int damage = damageOverride ?? projectile.Damage;
             CurrentHealth = Mathf.Max(0, CurrentHealth - damage);

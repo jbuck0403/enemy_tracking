@@ -9,13 +9,13 @@ public class DamageReceiver : MonoBehaviour
     private DamageHandlerStrategy damageHandlerStrategy;
 
     private DamageHandlerBase damageHandler;
-    private TakeDamage takeDamage;
+    private Health health;
 
     private void Awake()
     {
         // Cache components
         damageHandler = GetComponent<DamageHandlerBase>();
-        takeDamage = GetComponent<TakeDamage>();
+        health = GetComponent<Health>();
     }
 
     private void OnEnable()
@@ -30,9 +30,9 @@ public class DamageReceiver : MonoBehaviour
 
     private void HandleDamage(DamageData data)
     {
-        if (data.DamageReceiver == this.gameObject)
+        if (data.DamageReceiver == gameObject)
         {
-            damageHandlerStrategy.HandleDamage(data, damageHandler, takeDamage);
+            damageHandlerStrategy.HandleDamage(data, damageHandler, health);
         }
     }
 }

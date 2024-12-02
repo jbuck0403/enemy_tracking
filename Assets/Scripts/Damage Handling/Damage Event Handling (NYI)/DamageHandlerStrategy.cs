@@ -3,18 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "NewDamageHandlerStrategy",
     menuName = "DamageHandler/Strategy",
-    order = 2
+    order = 1
 )]
-public class DamageHandlerStrategy : ScriptableObject, IDamageHandler
+public class DamageHandlerStrategy : ScriptableObject
 {
     [SerializeField]
     private float damageMultiplier = 1f;
 
-    public void HandleDamage(
-        DamageData data,
-        DamageHandlerBase damageHandlerBase,
-        TakeDamage takeDamage
-    )
+    public void HandleDamage(DamageData data, DamageHandlerBase damageHandlerBase, Health health)
     {
         // calculate the final damage based on the characters strategy pattern
         float finalDamage = damageHandlerBase.CalculateDamage(
@@ -23,6 +19,6 @@ public class DamageHandlerStrategy : ScriptableObject, IDamageHandler
         );
 
         // apply the damage
-        takeDamage.ApplyDamage(new Projectile(), (int)finalDamage);
+        health.ApplyDamage(finalDamage);
     }
 }

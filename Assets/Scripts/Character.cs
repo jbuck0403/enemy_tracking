@@ -1,18 +1,12 @@
 using System;
 using UnityEngine;
 
-public class Character : MonoBehaviour, IMove, ITakeDamage, IWithinDistance
+public class Character : MonoBehaviour, IMove, IWithinDistance
 {
     private WithinDistance withinDistanceFn;
-    private TakeDamage damage;
 
     [NonSerialized]
     public Move move;
-
-    public void ApplyDamage(Projectile projectile, int? damageOverride = null) =>
-        damage.ApplyDamage(projectile, damageOverride);
-
-    public void Die(Action OnDestroy) => damage.Die(OnDestroy);
 
     public void ExecuteWithinDistanceAction() => withinDistanceFn?.ExecuteWithinDistanceAction();
 
@@ -45,7 +39,6 @@ public class Character : MonoBehaviour, IMove, ITakeDamage, IWithinDistance
 
     protected virtual void Awake()
     {
-        damage = GetComponent<TakeDamage>();
         move = GetComponent<Move>();
         withinDistanceFn = GetComponent<WithinDistance>();
     }

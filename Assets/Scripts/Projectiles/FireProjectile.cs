@@ -74,7 +74,7 @@ public class FireProjectile : MonoBehaviour
         }
 
         projectileComponent.SetFiredBy(gameObject);
-        projectileComponent.SetDamageType(ammoType.Type);
+        // projectileComponent.SetDamageType(ammoType.Type);
 
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         if (projectileRb == null)

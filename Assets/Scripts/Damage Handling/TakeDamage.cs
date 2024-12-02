@@ -40,7 +40,7 @@ public class TakeDamage : MonoBehaviour
 
         string firedBy = projectile.FiredBy;
 
-        if (CheckFriendlyFire(projectile))
+        if (!CheckFriendlyFire(projectile))
         {
             int damage = damageOverride ?? projectile.Damage;
             CurrentHealth = Mathf.Max(0, CurrentHealth - damage);

@@ -17,9 +17,9 @@ public class DamageReceiver : MonoBehaviour
 
     private void HandleDamage(DamageData data)
     {
-        // if (data.Target == this.gameObject)
-        // {
-        //     // Process damage
-        // }
+        if (data.DamageReceiver == this.gameObject)
+        {
+            // Process damage
+        }
     }
 }

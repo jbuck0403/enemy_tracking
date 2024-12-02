@@ -21,7 +21,7 @@ public class DamageData
     }
 }
 
-public class DamageType
+public enum DamageType
 {
-    public const string Physical = "Physical";
+    Physical
 }

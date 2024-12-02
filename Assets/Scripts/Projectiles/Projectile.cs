@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public DamageType Type = DamageType.Physical;
     public string FiredBy { private set; get; } = "";
+    public GameObject FiredByGameObject { private set; get; }
     public int Damage { protected set; get; } = 1;
     public float DestructionDelay { get; set; } = 0f;
 
-    public void SetFiredBy(string firedByTag)
+    public void SetFiredBy(GameObject firedBy)
     {
-        FiredBy = firedByTag;
+        FiredBy = firedBy.tag;
+        FiredByGameObject = firedBy;
     }
 
     public void DestroyProjectile()

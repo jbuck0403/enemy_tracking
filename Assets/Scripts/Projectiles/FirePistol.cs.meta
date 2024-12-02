@@ -5,6 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
+  - ammoType: {fileID: 11400000, guid: 33ac2eb5796b26f4a960e108d0ff2d29, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

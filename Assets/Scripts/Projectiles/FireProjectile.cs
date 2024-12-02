@@ -5,6 +5,9 @@ public class FireProjectile : MonoBehaviour
     [SerializeField]
     WeaponType weaponType;
 
+    [SerializeField]
+    AmmoType ammoType;
+
     private Transform projectileSpawnPoint;
 
     private float timeSinceLastShot;
@@ -33,7 +36,7 @@ public class FireProjectile : MonoBehaviour
     // If no value specified for shootDirection, defaults to Vector2.zero (0,0)
     public Projectile ShootProjectile(Vector2 shootDirection = default)
     {
-        if (weaponType.ProjectilePrefab == null)
+        if (ammoType.ProjectilePrefab == null)
         {
             Debug.LogError("Projectile prefab is null!");
             return null;
@@ -56,7 +59,7 @@ public class FireProjectile : MonoBehaviour
 
         // Instantiate and setup the projectile
         GameObject projectile = Instantiate(
-            weaponType.ProjectilePrefab,
+            ammoType.ProjectilePrefab,
             spawnPosition,
             transform.rotation
         );
@@ -70,7 +73,7 @@ public class FireProjectile : MonoBehaviour
             return null;
         }
 
-        projectileComponent.SetFiredBy(gameObject.tag);
+        projectileComponent.SetFiredBy(gameObject);
 
         Rigidbody2D projectileRb = projectile.GetComponent<Rigidbody2D>();
         if (projectileRb == null)
@@ -80,7 +83,7 @@ public class FireProjectile : MonoBehaviour
         }
 
         // Apply velocity in the shooting direction
-        projectileRb.velocity = shootDirection * weaponType.ProjectileSpeed;
+        projectileRb.velocity = shootDirection * ammoType.ProjectileSpeed;
 
         return projectileComponent;
     }

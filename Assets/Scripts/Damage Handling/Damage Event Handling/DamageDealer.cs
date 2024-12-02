@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start() { }
-
-    // Update is called once per frame
-    void Update() { }
+    private DamageData GenerateDamageData(Projectile projectile)
+    {
+        int rawDamageDealt = projectile.Damage;
+        GameObject damageDealer = projectile.FiredByGameObject;
+        GameObject damageReceiver = gameObject;
+        DamageType damageType = projectile.Type;
+        return new DamageData(rawDamageDealt, damageDealer, damageReceiver, damageType);
+    }
 }

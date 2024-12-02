@@ -5,6 +5,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject[] enemyTypes;
 
+    [SerializeField]
+    private Transform spawnLocation;
+
     private float timeSinceLastSpawn;
 
     [SerializeField]
@@ -20,7 +23,11 @@ public class GameController : MonoBehaviour
         timeSinceLastSpawn += Time.deltaTime;
         if (timeSinceLastSpawn >= spawnInterval)
         {
-            SpawnRandomEnemy(1);
+            Vector2 position =
+                spawnLocation != null
+                    ? (Vector2)spawnLocation.position
+                    : (Vector2)transform.position;
+            SpawnRandomEnemy(1, position);
             timeSinceLastSpawn = 0f;
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class DamageHandler : MonoBehaviour
 {
     [SerializeField]
-    private DamageEventChannel damageEventChannel;
+    public DamageEventChannel damageEventChannel;
 
     private DamageData GenerateDamageData(Projectile projectile)
     {

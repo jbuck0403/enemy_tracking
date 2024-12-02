@@ -8,6 +8,7 @@ public class FireBomb : FireProjectile, IFireProjectile
     private Vector2[] directions;
     private Health health;
 
+    // Unity lifecycle methods
     protected override void Awake()
     {
         base.Awake();
@@ -16,19 +17,17 @@ public class FireBomb : FireProjectile, IFireProjectile
         damageHandler = GetComponent<DamageHandler>();
     }
 
-    void Start() { }
-
-    public void UpdateNumProjectile(float num)
+    private void OnEnable()
     {
-        numProjectiles = Mathf.RoundToInt(num);
-        directions = GetProjectileDirections();
+        damageHandler.damageEventChannel.OnDamageDealt += MatchNumProjectilesToHealth;
     }
 
-    public void MatchNumProjectilesToHealth(DamageData data)
+    private void OnDisable()
     {
-        UpdateNumProjectile(health.CurrentHealth);
+        damageHandler.damageEventChannel.OnDamageDealt -= MatchNumProjectilesToHealth;
     }
 
+    // IFireProjectile implementations
     public void FireProjectile()
     {
         Explode();
@@ -37,6 +36,18 @@ public class FireBomb : FireProjectile, IFireProjectile
     public void FireProjectileWithRateOfFire()
     {
         Explode();
+    }
+
+    // Core functionality
+    private void UpdateNumProjectile(float num)
+    {
+        numProjectiles = Mathf.RoundToInt(num);
+        directions = GetProjectileDirections();
+    }
+
+    private void MatchNumProjectilesToHealth(DamageData data)
+    {
+        UpdateNumProjectile(health.CurrentHealth);
     }
 
     private void Explode()
@@ -67,15 +78,5 @@ public class FireBomb : FireProjectile, IFireProjectile
         }
 
         return directions;
-    }
-
-    private void OnEnable()
-    {
-        damageHandler.damageEventChannel.OnDamageDealt += MatchNumProjectilesToHealth;
-    }
-
-    private void OnDisable()
-    {
-        damageHandler.damageEventChannel.OnDamageDealt -= MatchNumProjectilesToHealth;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class DamageHandlerBase : MonoBehaviour
+public class DamageHandlerBase : MonoBehaviour
 {
     public float CalculateDamage(float initialDamage, float damageMultiplier)
     {

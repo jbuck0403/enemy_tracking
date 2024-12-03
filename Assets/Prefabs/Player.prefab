@@ -212,6 +212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a995b534c2153a498d4d5e9b5b9ed0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allWeapons:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5377806372806915523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4ab196e4c469f459fad96fff28bc05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: {fileID: 11400000, guid: a84abd3ba25797841a0573bd74ad8b8e, type: 2}
+  weaponType: {fileID: 11400000, guid: db72604b5d29a0c41858c753aee44ca6, type: 2}
   ammoType: {fileID: 11400000, guid: 33ac2eb5796b26f4a960e108d0ff2d29, type: 2}
 --- !u!114 &-8300896667938422152
 MonoBehaviour:

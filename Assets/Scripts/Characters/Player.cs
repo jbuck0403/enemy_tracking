@@ -1,22 +1,9 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Player : Character, IFireProjectile
+public class Player : Combatant
 {
     private Camera mainCamera;
     private Transform mousePositionTransform;
-    private FireProjectile defaultWeapon;
-
-    private IFireProjectile currentWeapon;
-
-    public void FireProjectile() => currentWeapon.FireProjectile();
-
-    public void FireProjectileWithRateOfFire() => currentWeapon.FireProjectileWithRateOfFire();
-
-    public void SwapWeapon(IFireProjectile newWeapon)
-    {
-        currentWeapon = newWeapon;
-    }
 
     protected override void Start()
     {
@@ -24,8 +11,6 @@ public class Player : Character, IFireProjectile
         mainCamera = Camera.main;
 
         mousePositionTransform = new GameObject("Mouse Position Target").transform;
-        defaultWeapon = GetComponent<FireProjectile>();
-        currentWeapon = defaultWeapon as IFireProjectile;
     }
 
     protected override void Update()

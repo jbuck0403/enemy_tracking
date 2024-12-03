@@ -1,18 +1,26 @@
 using System;
 using UnityEngine;
 
-public class Character : MonoBehaviour, IMove, IWithinDistance
+public class Character : MonoBehaviour, IMove
 {
     private WithinDistance withinDistanceFn;
 
     [NonSerialized]
     public Move move;
 
-    public void ExecuteWithinDistanceAction() => withinDistanceFn?.ExecuteWithinDistanceAction();
-
     public void FaceTarget(Transform target) => move.FaceTarget(target);
 
     public void MoveInDirection(Vector2 direction) => move.MoveInDirection(direction);
+
+    public void ExecuteWithinDistanceAction()
+    {
+        if (withinDistanceFn == null)
+        {
+            return;
+        }
+
+        withinDistanceFn.ExecuteWithinDistanceAction();
+    }
 
     public void FollowTarget(
         Transform target,

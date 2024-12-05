@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 8930116029073006917}
   - component: {fileID: -4199862026356652314}
   - component: {fileID: -4981458627787148589}
+  - component: {fileID: 7315919188043086443}
   m_Layer: 0
   m_Name: Enemy_Bomber
   m_TagString: Enemy
@@ -305,3 +306,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45663e9e29f6c2943925ad0a54e66d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &7315919188043086443
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 577ff005be734bf4fab91e29056330ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

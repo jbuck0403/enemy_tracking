@@ -3,8 +3,8 @@ using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "NewDamageEventChannel",
-    menuName = "DamageHandler/DamageEvent",
-    order = 2
+    menuName = "EventChannels/DamageEvent",
+    order = 1
 )]
 public class DamageEventChannel : ScriptableObject
 {

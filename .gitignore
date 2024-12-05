@@ -96,3 +96,6 @@ Assets/Projectile Animations.meta
 *.ma
 *.3ds
 *.c4d
+
+# Cursor specific
+*.cursorrules

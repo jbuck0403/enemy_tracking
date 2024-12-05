@@ -7,6 +7,7 @@ public class FireBomb : FireProjectile, IFireProjectile
     private DamageHandler damageHandler;
     private Vector2[] directions;
     private Health health;
+    private bool exploded = false;
 
     // Unity lifecycle methods
     protected override void Awake()
@@ -35,7 +36,10 @@ public class FireBomb : FireProjectile, IFireProjectile
 
     public void FireProjectileWithRateOfFire()
     {
-        Explode();
+        if (!exploded)
+        {
+            Explode();
+        }
     }
 
     // Core functionality
@@ -52,12 +56,16 @@ public class FireBomb : FireProjectile, IFireProjectile
 
     private void Explode()
     {
-        for (int i = 0; i < numProjectiles; i++)
+        if (!exploded)
         {
-            ShootProjectile(directions[i]);
-        }
+            for (int i = 0; i < numProjectiles; i++)
+            {
+                ShootProjectile(directions[i]);
+            }
 
-        Destroy(gameObject);
+            health.ApplyDamage(health.MaxHealth);
+            exploded = true;
+        }
     }
 
     private Vector2[] GetProjectileDirections()

@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: -6741911257339078617}
   - component: {fileID: 2572581749267878634}
   - component: {fileID: -8501231984143981214}
+  - component: {fileID: -3717865964609663083}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -114,7 +115,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1955dc26dd50a5747b372faf75429916, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -187,7 +188,7 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
+    pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -212,9 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a995b534c2153a498d4d5e9b5b9ed0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allWeapons:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &5377806372806915523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,3 +292,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebcee5e3bf3412429c68f74af5fd641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &-3717865964609663083
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711593218608430455}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 577ff005be734bf4fab91e29056330ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

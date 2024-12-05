@@ -2,19 +2,31 @@ using UnityEngine;
 
 public class Enemy : Combatant
 {
-    protected Transform playerTransform;
+    private GameObject player;
 
     protected override void Awake()
     {
         base.Awake();
-        playerTransform = GameObject.FindGameObjectWithTag(CommonTags.Player).transform;
+        player = GameObject.FindGameObjectWithTag(CommonTags.Player);
     }
 
     protected override void Update()
     {
-        if (playerTransform == null)
+        base.Update();
+
+        if (player == null)
         {
-            playerTransform = GameObject.FindGameObjectWithTag(CommonTags.Player).transform;
+            player = GameObject.FindGameObjectWithTag(CommonTags.Player);
+
+            if (player == null)
+            {
+                Active = false;
+                return;
+            }
+        }
+        else if (!Active)
+        {
+            Active = true;
         }
 
         ShootPlayer();
@@ -22,13 +34,17 @@ public class Enemy : Combatant
 
     protected override void FixedUpdate()
     {
-        FollowTarget(playerTransform);
         base.FixedUpdate();
+
+        if (player != null)
+        {
+            FollowTarget(player.transform);
+        }
     }
 
     protected virtual void ShootPlayer()
     {
-        if (TargetWithinDetectionRange(playerTransform))
+        if (TargetWithinDetectionRange(player.transform))
         {
             FireProjectileWithRateOfFire();
         }

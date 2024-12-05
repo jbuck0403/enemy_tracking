@@ -15,7 +15,7 @@ public class DamageHandler : MonoBehaviour
         );
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    private void HandleProjectileCollision(Collider2D other)
     {
         if (other.gameObject.CompareTag(CommonTags.Projectile))
         {
@@ -30,5 +30,10 @@ public class DamageHandler : MonoBehaviour
                 projectile.DestroyProjectile();
             }
         }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        HandleProjectileCollision(other);
     }
 }

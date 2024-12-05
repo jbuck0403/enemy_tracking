@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class Health : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +11,9 @@ public class Health : MonoBehaviour
     public float CurrentHealth;
 
     private SpriteRenderer spriteRenderer;
+    private Color spriteBaseColor;
+    private Animator deathAnimator;
+    private Character character;
 
     public event Action OnDamageTaken;
     public event Action OnDeath;
@@ -17,11 +21,14 @@ public class Health : MonoBehaviour
     protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        deathAnimator = GetComponent<Animator>();
+        character = GetComponent<Character>();
     }
 
     protected virtual void Start()
     {
         CurrentHealth = MaxHealth;
+        spriteBaseColor = spriteRenderer.color;
     }
 
     public void ApplyDamage(float damage)
@@ -35,16 +42,23 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void OnDeathAnimationComplete()
     {
-        Destroy(gameObject);
+        character.Die();
+    }
+
+    public void HandleDeath()
+    {
+        character.Active = false;
+        ResetColor();
+        deathAnimator.SetTrigger("DeathTrigger");
     }
 
     private void UpdateColorByHealth()
     {
         if (spriteRenderer != null)
         {
-            // Lerp from red (low health) to green (full health)
+            // Lerp from green (full health) to red (low health)
             float healthPercentage = (float)CurrentHealth / MaxHealth;
             Color healthColor = Color.Lerp(Color.red, Color.green, healthPercentage);
 
@@ -52,16 +66,21 @@ public class Health : MonoBehaviour
         }
     }
 
+    private void ResetColor()
+    {
+        spriteRenderer.color = spriteBaseColor;
+    }
+
     protected virtual void SubscribeToEvents()
     {
         OnDamageTaken += UpdateColorByHealth;
-        OnDeath += Die;
+        OnDeath += HandleDeath;
     }
 
     protected virtual void UnsubscribeFromEvents()
     {
         OnDamageTaken -= UpdateColorByHealth;
-        OnDeath -= Die;
+        OnDeath -= HandleDeath;
     }
 
     private void OnDestroy()

@@ -12,8 +12,6 @@ public class Move : MonoBehaviour
     [NonSerialized]
     public bool moving = false;
 
-    public void ExecuteWithinDistanceAction() => withinDistanceFn?.ExecuteWithinDistanceAction();
-
     public virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -110,7 +108,7 @@ public class Move : MonoBehaviour
                 if (withinDistanceFn != null)
                 {
                     // Unless action is provided, do nothing
-                    ExecuteWithinDistanceAction();
+                    withinDistanceFn.ExecuteWithinDistanceAction();
                 }
                 else
                 {

@@ -4,6 +4,23 @@ using UnityEngine;
 public class Character : MonoBehaviour, IMove
 {
     private WithinDistance withinDistanceFn;
+    private Collider2D col;
+    private Rigidbody2D rb;
+
+    [SerializeField]
+    private bool _active = true;
+    public bool Active
+    {
+        get => _active;
+        set
+        {
+            _active = value;
+            if (col != null)
+                col.enabled = value;
+            if (rb != null)
+                rb.simulated = value;
+        }
+    }
 
     [NonSerialized]
     public Move move;
@@ -49,17 +66,31 @@ public class Character : MonoBehaviour, IMove
     {
         move = GetComponent<Move>();
         withinDistanceFn = GetComponent<WithinDistance>();
+        col = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     protected virtual void Start() { }
 
-    protected virtual void Update() { }
+    protected virtual void Update()
+    {
+        if (!Active)
+            return;
+    }
 
     protected virtual void FixedUpdate()
     {
+        if (!Active)
+            return;
+
         if (!move.moving)
         {
             SlowToStop();
         }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 }

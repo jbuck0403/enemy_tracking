@@ -1,12 +1,10 @@
 fileFormatVersion: 2
-guid: 7cdbf426ded01aa4786af02a69ecf103
+guid: 4418cd67bf5946a4ea0ad9fe9dbd9c28
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - move: {instanceID: 0}
-  - deathAnimation: {fileID: 7400000, guid: ca13a73382dc9c844849a3c2785f4e2d, type: 2}
-  - defaultWeapon: {instanceID: 0}
+  - deathAnimation: {fileID: 7400000, guid: a2bc45ce34cc46c498fa7180a355214c, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

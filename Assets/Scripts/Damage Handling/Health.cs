@@ -50,6 +50,11 @@ public class Health : MonoBehaviour
     public void HandleDeath()
     {
         character.Active = false;
+        if (character is Enemy enemy)
+        {
+            enemy.IsDying = true;
+        }
+
         ResetColor();
         deathAnimator.SetTrigger("DeathTrigger");
     }

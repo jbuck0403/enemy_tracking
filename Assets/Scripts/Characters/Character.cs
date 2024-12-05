@@ -15,10 +15,20 @@ public class Character : MonoBehaviour, IMove
         set
         {
             _active = value;
+
             if (col != null)
+            {
                 col.enabled = value;
+            }
             if (rb != null)
+            {
+                if (!value)
+                {
+                    rb.velocity = Vector2.zero;
+                    rb.angularVelocity = 0f;
+                }
                 rb.simulated = value;
+            }
         }
     }
 

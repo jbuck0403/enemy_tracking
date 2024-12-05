@@ -3,6 +3,7 @@ using UnityEngine;
 public class Enemy : Combatant
 {
     private GameObject player;
+    public bool IsDying { get; set; } = false;
 
     protected override void Awake()
     {
@@ -13,6 +14,11 @@ public class Enemy : Combatant
     protected override void Update()
     {
         base.Update();
+
+        if (IsDying)
+        {
+            return;
+        }
 
         if (player == null)
         {
@@ -35,6 +41,11 @@ public class Enemy : Combatant
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (IsDying)
+        {
+            return;
+        }
 
         if (player != null)
         {

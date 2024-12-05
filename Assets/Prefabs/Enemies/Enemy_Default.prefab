@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1449408527502274844}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: projectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   - component: {fileID: -407156101826681942}
   - component: {fileID: 8137320106947777897}
   - component: {fileID: 7315919188043086443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy_Default
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -215,6 +215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _active: 1
+  shipLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &4078116506591731975
 MonoBehaviour:
   m_ObjectHideFlags: 0

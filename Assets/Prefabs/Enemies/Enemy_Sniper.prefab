@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 5063926175511682064}
   - component: {fileID: 1852132213689927274}
   - component: {fileID: 7315919188043086443}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy_Sniper
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -216,6 +216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _active: 1
+  shipLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &270725521520502120
 MonoBehaviour:
   m_ObjectHideFlags: 0

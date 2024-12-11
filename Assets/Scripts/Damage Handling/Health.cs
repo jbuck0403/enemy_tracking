@@ -17,6 +17,7 @@ public class Health : MonoBehaviour
 
     public event Action OnDamageTaken;
     public event Action OnDeath;
+    public event Action OnHealthChange;
 
     protected virtual void Awake()
     {
@@ -40,6 +41,12 @@ public class Health : MonoBehaviour
         {
             OnDeath?.Invoke();
         }
+    }
+
+    public void Heal(float amount)
+    {
+        CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth + amount);
+        OnHealthChange?.Invoke();
     }
 
     public void OnDeathAnimationComplete()
@@ -79,12 +86,14 @@ public class Health : MonoBehaviour
     protected virtual void SubscribeToEvents()
     {
         OnDamageTaken += UpdateColorByHealth;
+        OnHealthChange += UpdateColorByHealth;
         OnDeath += HandleDeath;
     }
 
     protected virtual void UnsubscribeFromEvents()
     {
         OnDamageTaken -= UpdateColorByHealth;
+        OnHealthChange -= UpdateColorByHealth;
         OnDeath -= HandleDeath;
     }
 

@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - ProjectileContainer
   - Shield
+  - FX
+  - Collectible
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - UI
   - CollidesWithProjectile
   - Projectile
-  - 
+  - Enemy
   - 
   - 
   - 

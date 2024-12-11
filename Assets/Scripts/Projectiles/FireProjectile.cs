@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class FireProjectile : MonoBehaviour
@@ -87,5 +88,31 @@ public class FireProjectile : MonoBehaviour
         projectileRb.velocity = shootDirection * ammoType.ProjectileSpeed;
 
         return projectileComponent;
+    }
+
+    public WeaponType ChangeWeaponType(WeaponType newWeaponType)
+    {
+        WeaponType oldWeaponType = weaponType;
+        weaponType = newWeaponType;
+
+        return oldWeaponType;
+    }
+
+    public void ChangeAmmoType() { }
+
+    public IEnumerator ChangeWeaponTypeAfterDelay(WeaponType newWeapon, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        ChangeWeaponType(newWeapon);
+    }
+
+    public void SwapThenSwapBack(WeaponType newWeaponType, float duration)
+    {
+        WeaponType currentWeaponType = weaponType;
+
+        ChangeWeaponType(newWeaponType);
+
+        StartCoroutine(ChangeWeaponTypeAfterDelay(currentWeaponType, duration));
     }
 }

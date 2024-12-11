@@ -346,3 +346,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectibles:
   - {fileID: 4204814143125078608, guid: 5ea0564f1c86357448525b1544ed6698, type: 3}
+  - {fileID: 9179239503168856224, guid: 8b67b489330eb694d8ce1b489b714afa, type: 3}

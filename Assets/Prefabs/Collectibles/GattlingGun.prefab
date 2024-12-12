@@ -157,4 +157,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gattlingGun: {fileID: 11400000, guid: af0b1fa6756b4ef4a81176bbeb0070f6, type: 2}
-  duration: 2
+  duration: 3.5

@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: {fileID: 11400000, guid: db72604b5d29a0c41858c753aee44ca6, type: 2}
-  ammoType: {fileID: 11400000, guid: 33ac2eb5796b26f4a960e108d0ff2d29, type: 2}
+  ammoType: {fileID: 11400000, guid: e4a7fd9331e671749bb086241458b330, type: 2}
 --- !u!114 &-947819001414556231
 MonoBehaviour:
   m_ObjectHideFlags: 0

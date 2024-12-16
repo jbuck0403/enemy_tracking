@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CollectibleBehaviorMedkit : CollectibleBehaviorBase
+public class CollectibleMedkit : Collectible
 {
     [SerializeField]
     private float healAmount = 5f;

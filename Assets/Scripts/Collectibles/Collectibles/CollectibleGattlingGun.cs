@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-public class CollectibleBehaviorGattlingGun : CollectibleBehaviorBase
+public class CollectibleGattlingGun : Collectible
 {
     [SerializeField]
     private WeaponType gattlingGun;
 
     [SerializeField]
     private float duration = 2f;
-    private WeaponType currentWeapon;
+
     private Combatant combatant;
     private FireProjectile fireProjectile;
 

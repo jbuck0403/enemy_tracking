@@ -1,15 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class Collectible : MonoBehaviour
+public abstract class Collectible : MonoBehaviour
 {
-    CollectibleBehaviorBase collectibleBehavior;
+    protected abstract void HandleCollectible();
 
-    void HandleCollectible() => collectibleBehavior.Collect();
-
-    void Awake()
+    public void Collect()
     {
-        collectibleBehavior = GetComponent<CollectibleBehaviorBase>();
+        HandleCollectible();
     }
 
     void OnTriggerEnter2D(Collider2D other)
